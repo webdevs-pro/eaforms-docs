@@ -4,7 +4,7 @@ title: Calculation Tokens
 sidebar_label: Calculation Tokens
 ---
 
-# EA Forms - Frontend Tokens Documentation
+# EA Forms - Calculation Tokens Documentation
 
 ## Introduction
 
@@ -73,23 +73,26 @@ This token allows you to perform operations on repeater field values.
 
 **Syntax:**
 ```
-#repeater_field(repeaterName, fieldName, [operation], [index])
+#repeater_field(repeaterName, fieldName, [operation])
 ```
 
 **Parameters:**
 - `repeaterName`: The name of the repeater field
 - `fieldName`: The name of the field within the repeater
+  - Can include an index in square brackets like `fieldName[2]` or `fieldName[current]` to target a specific item
 - `operation` (optional): The operation to perform on the values, defaults to 'sum'
   - `sum`: Calculates the total sum of all field values
   - `avg`: Calculates the average (mean) of all field values
   - `min`: Returns the smallest value among all field values
   - `max`: Returns the largest value among all field values  
   - `count`: Returns the number of items in the repeater
-- `index` (optional): A specific index to target
-  - Number (0, 1, 2, etc.): Targets the field at a specific index
-  - `first`: Targets the field at the first index
-  - `last`: Targets the field at the last index
-  - `current`: Targets the field in the current repeater row (contextual)
+
+**Index Specifiers:**
+When using a specific index in square brackets after the field name, the following options are available:
+- Number (0, 1, 2, etc.): Targets the field at a specific index
+- `first`: Targets the field at the first index
+- `last`: Targets the field at the last index
+- `current`: Targets the field in the current repeater row (contextual)
 
 **Examples:**
 ```
@@ -117,6 +120,7 @@ Returns the largest 'price' value from all 'order_items' repeater instances.
 ```
 Returns the number of items in the 'order_items' repeater.
 
+**Accessing specific items:**
 ```
 #repeater_field(order_items, price[current])
 ```
@@ -267,6 +271,17 @@ When working within a repeater row, you can use the `current` index to reference
 
 This is particularly useful for creating calculated fields within repeater rows that reference other fields in the same row.
 
+### Understanding the "current" Context
+
+The `[current]` index specifier is contextual and depends on where the calculation is being performed:
+
+1. When used within a repeater item, it automatically detects which row you're in
+2. When used in a field that's being edited, it identifies the current context
+3. The system uses various methods to identify the current repeater item index:
+   - Looking for the closest `.eaf-repeater-item` parent element
+   - Analyzing input field names for index patterns like `fieldname[index]`
+   - Using data attributes when available
+
 ### Aggregating Repeater Data
 
 To perform calculations across all repeater rows:
@@ -304,6 +319,15 @@ Thank you, #field(first_name)! Your order includes #repeater(order_items, rows_c
 Subtotal: $#calc(#repeater_field(products, price[current]) * #repeater_field(products, quantity[current]))
 ```
 
+## Performance Considerations
+
+The EA Forms calculation system is designed to be efficient by:
+
+1. Using specific event listeners for different input types
+2. Caching original values to avoid unnecessary recalculations
+3. Processing tokens only when needed
+4. Using appropriate events (input, change, keyup) for different field types
+
 ## Troubleshooting
 
 If your tokens aren't working as expected:
@@ -313,3 +337,12 @@ If your tokens aren't working as expected:
 3. Check the browser console for any error messages
 4. Make sure field values can be converted to numbers when used in calculations
 5. For complex tokens, build them step by step to identify issues
+6. When using `[current]` in repeaters, ensure your element is properly inside a repeater item
+7. For repeater calculations, check that your field names and structure match the expected pattern
+
+### Common Error Messages and Solutions
+
+- `"Invalid characters in calculation expression"`: Check that your calculation uses only valid mathematical operators and numbers
+- `"Not enough parameters for repeater_field token"`: Ensure you're providing both repeater name and field name
+- `"Unknown property for repeater"`: Verify you're using a valid property name (rows_count, first_index, last_index)
+- `"Could not determine current repeater item index"`: Make sure the token with `[current]` is used within a repeater context
