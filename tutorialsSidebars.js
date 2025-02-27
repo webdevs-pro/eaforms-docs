@@ -14,9 +14,11 @@ const tutorialsSidebars = {
       label: 'Installation',
     },
     {
-      type: 'doc',
-      id: 'multi-step-forms',
-      label: 'Multi-step Forms',
+      type: 'category',
+      label: 'Tutorials',
+      items: [
+        'Tutorials/multi-step-forms',
+      ],
     },
     // Add more tutorials here as needed
   ],

@@ -20,6 +20,6 @@ If you're new to EA Forms, we recommend starting with these basic tutorials:
 
 Once you're familiar with the basics, check out these advanced tutorials:
 
-- [Creating Multi-step Forms](/tutorials/multi-step-forms.md)
+- [Creating Multi-step Forms](/tutorials/Tutorials/multi-step-forms.md)
 
 Each tutorial includes detailed instructions with screenshots to guide you through the process.
