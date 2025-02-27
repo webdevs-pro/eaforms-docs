@@ -37,8 +37,8 @@ const config = {
       {
         id: 'tutorial',
         path: 'tutorials',  
-        routeBasePath: 'tutorial', // Change to 'tutorial' (singular)
-        sidebarPath: require.resolve('./sidebars.js'),
+        routeBasePath: 'tutorials', // Changed to 'tutorials' (plural) to match navbar
+        sidebarPath: require.resolve('./tutorialsSidebars.js'), // Point to tutorials-specific sidebar file
         // Remove any editUrl or other optional fields
       },
     ],
@@ -48,7 +48,7 @@ const config = {
         id: 'docs',
         path: 'docs',
         routeBasePath: 'docs',
-        sidebarPath: require.resolve('./sidebars.js'),
+        sidebarPath: require.resolve('./docsSidebars.js'), // Point to docs-specific sidebar file
         // Remove any editUrl or other optional fields
       },
     ],
@@ -64,9 +64,9 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          // Simplify the navbar items
+          // Updated to match routeBasePath
           {
-            to: '/tutorial',
+            to: '/tutorials',
             label: 'Tutorials',
             position: 'left',
           },
