@@ -302,6 +302,30 @@ Returns 10 (the largest value).
 ```
 Returns the largest value among the min_price field, price field, and 50.
 
+#### To Fixed (Format Decimals)
+
+**Syntax:**
+```
+#to_fixed(value, [decimals])
+```
+
+**Parameters:**
+- `value`: The number to format
+- `decimals` (optional): Number of decimal places, defaults to 2
+
+**Description:** Formats a number with a fixed number of decimal places, including trailing zeros. Unlike `#math_round`, this always shows exactly N decimal places.
+
+**Example:**
+```
+#to_fixed(1.5, 2)
+```
+Returns "1.50".
+
+```
+#to_fixed(#field(price), 2)
+```
+Formats the price field value with 2 decimal places for consistent currency display.
+
 ## Nesting Tokens
 
 Tokens can be nested inside other tokens to create more complex expressions.

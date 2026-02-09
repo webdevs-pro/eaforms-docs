@@ -106,10 +106,12 @@ All calculation tokens from the calculation system are also available in submit 
 - `#math_abs(number)`: Get absolute value
 - `#math_min(number1, number2, ...)`: Get minimum value
 - `#math_max(number1, number2, ...)`: Get maximum value
+- `#to_fixed(value, [decimals])`: Format number with fixed decimal places (e.g. 1.5 → 1.50)
 
-**Example:**
+**Examples:**
 ```
 Final Total: $#math_round(#calc(#field(base_price) + #field(tax)), 2)
+Formatted Price: $#to_fixed(#field(price), 2)
 ```
 
 ### Form Token
